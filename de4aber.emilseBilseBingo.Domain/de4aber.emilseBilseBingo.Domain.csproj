@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\de4aber.emilseBilseBingo.Core\de4aber.emilseBilseBingo.Core.csproj"/>
+        <ProjectReference Include="..\de4aber.emilseBilseBingo.Core\de4aber.emilseBilseBingo.Core.csproj" />
     </ItemGroup>
 
 </Project>

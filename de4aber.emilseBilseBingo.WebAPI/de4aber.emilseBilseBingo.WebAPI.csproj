@@ -10,12 +10,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5"/>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.5" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\de4aber.emilseBilseBingo.DataAccess\de4aber.emilseBilseBingo.DataAccess.csproj"/>
+        <ProjectReference Include="..\de4aber.emilseBilseBingo.DataAccess\de4aber.emilseBilseBingo.DataAccess.csproj" />
     </ItemGroup>
 
 </Project>

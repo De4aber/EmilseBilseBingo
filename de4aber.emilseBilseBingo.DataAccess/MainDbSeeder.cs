@@ -33,6 +33,7 @@ namespace de4aber.emilseBilseBingo.DataAcess
             _ctx.Persons.Add(new PersonEntity("Fortmike"));
             _ctx.Persons.Add(new PersonEntity("HovedSkov"));
             _ctx.Persons.Add(new PersonEntity("Rye/Cecilie"));
+            _ctx.SaveChanges();
         }
 
         private void AddTileItems()
@@ -47,7 +48,8 @@ namespace de4aber.emilseBilseBingo.DataAcess
                 "Du pinlig", "Det ironi", "Laver en Joke"
             };
 
-            foreach (string condition in emilConditions) _ctx.TileItemEntities.Add(new TileItemEntity(condition, 0));
+            foreach (string condition in emilConditions) _ctx.TileItemEntities.Add(new TileItemEntity(condition, 1));
+            _ctx.SaveChanges();
         }
     }
 }
