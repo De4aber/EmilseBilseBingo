@@ -10,7 +10,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Entities
             OfPersonId = ofPersonId;
         }
 
-        public int Id { get; set; } = -1;
+        public int Id { get; set; }
         public string Condition { get; set; }
         public int OfPersonId { get; set; }
     }

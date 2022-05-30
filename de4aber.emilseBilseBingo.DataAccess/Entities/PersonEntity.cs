@@ -7,7 +7,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Entities
             Name = name;
         }
 
-        public int Id { get; set; } = -1;
+        public int Id { get; set; }
         
         public string Name { get; set; }
         
