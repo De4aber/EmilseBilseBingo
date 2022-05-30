@@ -8,7 +8,7 @@ namespace de4aber.emilseBilseBingo.Core.Models
             OfPerson = ofPerson;
         }
 
-        public int Id { get; set; }
+        public int Id { get; set; } = -1;
         public string Condition { get; set; }
         public Person OfPerson { get; set; }
     }
