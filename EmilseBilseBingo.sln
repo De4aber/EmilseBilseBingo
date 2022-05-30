@@ -1,6 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmilseBilseBingo", "EmilseBilseBingo\EmilseBilseBingo.csproj", "{45738A12-2A6C-43BF-BB47-0E1E5C095976}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "de4aber.emilseBilseBingo.WebAPI", "de4aber.emilseBilseBingo.WebAPI\de4aber.emilseBilseBingo.WebAPI.csproj", "{45738A12-2A6C-43BF-BB47-0E1E5C095976}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{8ECD4743-5D7E-48A7-A38A-57EE50A55F48}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{D856C0E4-EE42-4EDC-91B5-A14BE1A3FA0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{270016BA-3482-460E-8C04-2E5BA45F1FA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "de4aber.emilseBilseBingo.Core", "de4aber.emilseBilseBingo.Core\de4aber.emilseBilseBingo.Core.csproj", "{8A686142-A853-488E-B643-D88619CE0A66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "de4aber.emilseBilseBingo.Domain", "de4aber.emilseBilseBingo.Domain\de4aber.emilseBilseBingo.Domain.csproj", "{E8A38F0B-2B87-434F-B40E-8043F74E1547}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "de4aber.emilseBilseBingo.DataAccess", "de4aber.emilseBilseBingo.DataAccess\de4aber.emilseBilseBingo.DataAccess.csproj", "{51AE30B0-D476-493E-BAC0-F8888ABF5D41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +24,23 @@ Global
 		{45738A12-2A6C-43BF-BB47-0E1E5C095976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45738A12-2A6C-43BF-BB47-0E1E5C095976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45738A12-2A6C-43BF-BB47-0E1E5C095976}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A686142-A853-488E-B643-D88619CE0A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A686142-A853-488E-B643-D88619CE0A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A686142-A853-488E-B643-D88619CE0A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A686142-A853-488E-B643-D88619CE0A66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8A38F0B-2B87-434F-B40E-8043F74E1547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8A38F0B-2B87-434F-B40E-8043F74E1547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8A38F0B-2B87-434F-B40E-8043F74E1547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8A38F0B-2B87-434F-B40E-8043F74E1547}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51AE30B0-D476-493E-BAC0-F8888ABF5D41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51AE30B0-D476-493E-BAC0-F8888ABF5D41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51AE30B0-D476-493E-BAC0-F8888ABF5D41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51AE30B0-D476-493E-BAC0-F8888ABF5D41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A686142-A853-488E-B643-D88619CE0A66} = {D856C0E4-EE42-4EDC-91B5-A14BE1A3FA0F}
+		{E8A38F0B-2B87-434F-B40E-8043F74E1547} = {D856C0E4-EE42-4EDC-91B5-A14BE1A3FA0F}
+		{51AE30B0-D476-493E-BAC0-F8888ABF5D41} = {270016BA-3482-460E-8C04-2E5BA45F1FA3}
+		{45738A12-2A6C-43BF-BB47-0E1E5C095976} = {8ECD4743-5D7E-48A7-A38A-57EE50A55F48}
 	EndGlobalSection
 EndGlobal
