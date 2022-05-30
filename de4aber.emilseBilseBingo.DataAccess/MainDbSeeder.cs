@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using de4aber.emilseBilseBingo.DataAcess.Entities;
 
 namespace de4aber.emilseBilseBingo.DataAcess
 {
-    public class MainDbSeeder: IMainDbSeeder
+    public class MainDbSeeder : IMainDbSeeder
     {
         private readonly MainDbContext _ctx;
 
@@ -19,7 +17,7 @@ namespace de4aber.emilseBilseBingo.DataAcess
             _ctx.Database.EnsureCreated();
 
             AddMockData();
-            
+
             _ctx.SaveChanges();
         }
 
@@ -36,10 +34,9 @@ namespace de4aber.emilseBilseBingo.DataAcess
             _ctx.Persons.Add(new PersonEntity("HovedSkov"));
             _ctx.Persons.Add(new PersonEntity("Rye/Cecilie"));
         }
-        
+
         private void AddTileItems()
         {
-
             string[] emilConditions =
             {
                 "Dyb stemme", "Pive stemme", "2 Hænder foran øjne", "1 Hånd foran øjne",
@@ -50,10 +47,7 @@ namespace de4aber.emilseBilseBingo.DataAcess
                 "Du pinlig", "Det ironi", "Laver en Joke"
             };
 
-            foreach (string condition in emilConditions)
-            {
-                _ctx.TileItemEntities.Add(new TileItemEntity(condition, 0));
-            }
+            foreach (string condition in emilConditions) _ctx.TileItemEntities.Add(new TileItemEntity(condition, 0));
         }
     }
 }

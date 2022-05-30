@@ -1,5 +1,8 @@
-using System.Text;
+using de4aber.emilseBilseBingo.Core.IServices;
 using de4aber.emilseBilseBingo.DataAcess;
+using de4aber.emilseBilseBingo.DataAcess.Repositories;
+using de4aber.emilseBilseBingo.Domain.IRepositories;
+using de4aber.emilseBilseBingo.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -12,14 +15,14 @@ namespace EmilseBilseBingo
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-        
-         // This method gets called by the runtime. Use this method to add services to the container.
+
+        public IConfiguration Configuration { get; }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
@@ -27,44 +30,44 @@ namespace EmilseBilseBingo
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1",
-                    new OpenApiInfo() {Title = "EmilseBilseBingo.WebApi", Version = "v1"});
+                    new OpenApiInfo {Title = "EmilseBilseBingo.WebApi", Version = "v1"});
             });
 
 
             //Setting up dependency injection
+
+
             //MainDbSeeder
             services.AddScoped<IMainDbSeeder, MainDbSeeder>();
-
-
-
             //Setting up DB info
-            services.AddDbContext<MainDbContext>(options => { options.UseSqlite("Data Source=main.db"); });
+            services.AddDbContext<MainDbContext>(options => { options.UseSqlite("Data Source=bingo.db"); });
+
+            //Persons
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IPersonService, PersonService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainDbContext context,
             IMainDbSeeder mainDbSeeder)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-
-                app.UseSwagger();
-
-                app.UseSwaggerUI();
-            }
             
-            mainDbSeeder.SeedDevelopment();
+            
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
 
-            app.UseHttpsRedirection();
-
-            app.UseAuthentication();
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
 
             app.UseRouting();
-
-            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
-    
-    
 }

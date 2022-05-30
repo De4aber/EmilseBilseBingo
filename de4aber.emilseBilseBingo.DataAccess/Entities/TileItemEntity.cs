@@ -1,5 +1,3 @@
-using System.Data.Common;
-
 namespace de4aber.emilseBilseBingo.DataAcess.Entities
 {
     public class TileItemEntity
