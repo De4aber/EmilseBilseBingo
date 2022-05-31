@@ -22,6 +22,12 @@ namespace EmilseBilseBingo.Controllers
             return _tileItemService.GetAll();
         }
 
+        [HttpGet(nameof(GetById) + "/{id}")]
+        public ActionResult<TileItem> GetById(int id)
+        {
+            return _tileItemService.GetById(id);
+        }
+
         [HttpPost]
         public ActionResult<TileItem> Create(TileItem tileItem)
         {
