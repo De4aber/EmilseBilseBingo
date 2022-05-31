@@ -12,14 +12,8 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly MySqlConnection _connection;
-
-        public PersonRepository(MySqlConnection connection)
-        {
-            _connection =
-                new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
-        }
-
+        private readonly MySqlConnection _connection = new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
+        
         public async Task<List<Person>> FindAll()
         {
             var list = new List<Person>();

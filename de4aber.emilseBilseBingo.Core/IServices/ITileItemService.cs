@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.Models;
 
 namespace de4aber.emilseBilseBingo.Core.IServices
 {
     public interface ITileItemService
     {
-        public List<TileItem> GetAll();
+        public Task<List<TileItem>> GetAll();
 
         public TileItem GetById(int id);
 

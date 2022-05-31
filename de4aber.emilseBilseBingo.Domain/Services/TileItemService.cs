@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.IServices;
 using de4aber.emilseBilseBingo.Core.Models;
 using de4aber.emilseBilseBingo.Domain.IRepositories;
@@ -18,9 +19,9 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             _personRepository = personRepository;
         }
 
-        public List<TileItem> GetAll()
+        public Task<List<TileItem>> GetAll()
         {
-            throw new NotImplementedException();
+            return _tileItemRepository.FindAll();
         }
 
         public TileItem GetById(int id)
