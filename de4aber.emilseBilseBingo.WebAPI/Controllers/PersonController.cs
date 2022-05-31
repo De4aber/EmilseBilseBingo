@@ -21,5 +21,11 @@ namespace EmilseBilseBingo.Controllers
         {
             return _personService.GetAll();
         }
+        
+        [HttpGet(nameof(GetById) + "/{id}")]
+        public ActionResult<Person> GetById(int id)
+        {
+            return _personService.FindById(id);
+        }
     }
 }

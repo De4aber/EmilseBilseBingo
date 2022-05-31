@@ -18,5 +18,10 @@ namespace de4aber.emilseBilseBingo.Domain.Services
         {
             return _personRepository.FindAll();
         }
+
+        public Person FindById(int id)
+        {
+            return _personRepository.FindById(id);
+        }
     }
 }

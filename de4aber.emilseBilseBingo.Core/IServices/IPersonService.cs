@@ -6,5 +6,7 @@ namespace de4aber.emilseBilseBingo.Core.IServices
     public interface IPersonService
     {
         public List<Person> GetAll();
+
+        public Person FindById(int id);
     }
 }
