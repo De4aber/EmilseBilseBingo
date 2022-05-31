@@ -32,5 +32,10 @@ namespace de4aber.emilseBilseBingo.Domain.Services
 
             return tileItems;
         }
+
+        public TileItem Create(TileItem tileItem)
+        {
+            return _tileItemRepository.Create(tileItem);
+        }
     }
 }

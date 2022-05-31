@@ -6,5 +6,7 @@ namespace de4aber.emilseBilseBingo.Domain.IRepositories
     public interface ITileItemRepository
     {
         public List<TileItem> FindAll();
+
+        public TileItem Create(TileItem tileItem);
     }
 }
