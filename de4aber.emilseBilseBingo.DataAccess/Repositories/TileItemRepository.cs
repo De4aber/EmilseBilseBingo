@@ -31,7 +31,6 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var value = reader.GetValue(0);
                 var ent = new TileItemEntity(reader.GetValue(1).ToString(), (int) reader.GetValue(2))
                 {
                     Id = (int) reader.GetValue(0)
@@ -51,7 +50,6 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var value = reader.GetValue(0);
                 var ent = new TileItemEntity(reader.GetValue(1).ToString(),(int) reader.GetValue(2))
                 {
                     Id = (int) reader.GetValue(0)
@@ -63,11 +61,23 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             throw new InvalidDataException("TileItem with that id does not exist");
         }
 
-        public TileItem Create(TileItem tileItem)
+        public async Task<TileItem> Create(TileItem tileItem)
         {
-            var tI = _ctx.TileItemEntities.Add(toTileEntity(tileItem)).Entity;
-            _ctx.SaveChanges();
-            return tI.ToTileItem();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"INSERT INTO `{_table}`(`bingoCondition`, `ofPersonId`) VALUES ('{tileItem.Condition}', '{tileItem.OfPersonId}'); SELECT * FROM `{_table}` WHERE `id` = LAST_INSERT_ID();", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var ent = new TileItem(reader.GetValue(1).ToString(),(int) reader.GetValue(2))
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                return ent;
+
+            }
+
+            throw new InvalidDataException("ERROR: TileItem not created");
         }
 
         private TileItemEntity toTileEntity(TileItem tileItem)

@@ -44,7 +44,7 @@ namespace de4aber.emilseBilseBingo.Domain.Services
 
         public TileItem Create(TileItem tileItem)
         {
-            throw new NotImplementedException();
+            return SetPerson(_tileItemRepository.Create(tileItem).Result);
         }
         
     }
