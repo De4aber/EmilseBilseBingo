@@ -6,6 +6,7 @@ pipeline {
     }
 
     stages {
+
         stage ("Hello World!") {
             steps {
                 sh "echo 'hello world!'"
@@ -15,6 +16,23 @@ pipeline {
         stage ("Build Backend") {
             steps {
                 sh "dotnet build ."
+            }
+        }
+
+        stage ("Reset Containers") {
+            steps {
+                script {
+                    try {
+                        sh "docker compose down"
+                    }
+                    finally {}
+                }
+            }
+        }
+
+        stage ("Deploy Backend") {
+            steps {
+                sh "docker compose up -d --build"
             }
         }
     }
