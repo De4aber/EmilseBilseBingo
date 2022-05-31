@@ -61,9 +61,24 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             throw new InvalidDataException("user with that id does not exist");
         }
 
-        public Person Create(Person person)
+        public async Task<Person> Create(Person person)
         {
-            throw new NotImplementedException();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"INSERT INTO `Person`(`name`) VALUES ('{person.Name}'); SELECT * FROM `Person` WHERE `id` = LAST_INSERT_ID();", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var value = reader.GetValue(0);
+                var ent = new PersonEntity(reader.GetValue(1).ToString())
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                return ent.ToPerson();
+
+            }
+
+            throw new InvalidDataException("ERROR: person not created");
         }
 
         private PersonEntity ToEntity(Person person)

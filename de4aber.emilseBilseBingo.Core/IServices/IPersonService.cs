@@ -10,6 +10,6 @@ namespace de4aber.emilseBilseBingo.Core.IServices
 
         public Task<Person> FindById(int id);
 
-        public Person Create(Person person);
+        public Task<Person> Create(Person person);
     }
 }
