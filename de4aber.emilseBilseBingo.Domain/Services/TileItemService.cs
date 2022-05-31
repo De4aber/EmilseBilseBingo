@@ -25,17 +25,28 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             
             foreach (TileItem ti in tileItems)
             {
-                Console.WriteLine("Of person with Id = " + ti.OfPersonId);
-                ti.OfPerson = _personRepository.FindById(ti.OfPersonId);
+                SetPerson(ti);
             }
             
 
             return tileItems;
         }
 
+        public TileItem GetById(int id)
+        {
+            return SetPerson(_tileItemRepository.FindById(id));
+            
+        }
+
         public TileItem Create(TileItem tileItem)
         {
-            return _tileItemRepository.Create(tileItem);
+            return SetPerson(_tileItemRepository.Create(tileItem));
+        }
+
+        private TileItem SetPerson(TileItem tileItem)
+        {
+            tileItem.OfPerson = _personRepository.FindById(tileItem.OfPersonId);
+            return tileItem;
         }
     }
 }

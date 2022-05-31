@@ -22,6 +22,11 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             return _ctx.TileItemEntities.Select(tie => tie.ToTileItem()).ToList();
         }
 
+        public TileItem FindById(int id)
+        {
+            return _ctx.TileItemEntities.First(t => t.Id == id).ToTileItem();
+        }
+
         public TileItem Create(TileItem tileItem)
         {
             var tI = _ctx.TileItemEntities.Add(toTileEntity(tileItem)).Entity;
