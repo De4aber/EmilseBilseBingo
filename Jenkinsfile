@@ -35,5 +35,11 @@ pipeline {
                 sh "docker compose --env-file config/Test.env up -d --build"
             }
         }
+
+        stage('Push image to register') {
+            steps {
+                sh "docker compose --env-file ./config/Test.env push"
+            }
+        }
     }
 }
