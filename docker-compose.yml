@@ -4,6 +4,7 @@ services:
   api:
     build:
       context: ""
-    container_name: "emilsebilse-backend"
+    image: "localhost:7002/emilsebilsebackend-test_api:${IMAGE_TAG}"
+    container_name: "${CONT_NAME}"
     ports:
-      - "8070:80"
+      - "${PORT}:80"
