@@ -21,5 +21,11 @@ namespace EmilseBilseBingo.Controllers
         {
             return _tileItemService.GetAll();
         }
+
+        [HttpPost]
+        public ActionResult<TileItem> Create(TileItem tileItem)
+        {
+            return _tileItemService.Create(tileItem);
+        }
     }
 }

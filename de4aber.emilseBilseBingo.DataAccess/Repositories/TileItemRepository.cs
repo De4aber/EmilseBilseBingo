@@ -21,5 +21,17 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
         {
             return _ctx.TileItemEntities.Select(tie => tie.ToTileItem()).ToList();
         }
+
+        public TileItem Create(TileItem tileItem)
+        {
+            var tI = _ctx.TileItemEntities.Add(toTileEntity(tileItem)).Entity;
+            _ctx.SaveChanges();
+            return tI.ToTileItem();
+        }
+
+        private TileItemEntity toTileEntity(TileItem tileItem)
+        {
+            return new TileItemEntity(tileItem.Condition, tileItem.OfPersonId);
+        }
     }
 }
