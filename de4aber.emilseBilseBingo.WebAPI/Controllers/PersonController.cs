@@ -27,5 +27,11 @@ namespace EmilseBilseBingo.Controllers
         {
             return _personService.FindById(id);
         }
+
+        [HttpPost]
+        public ActionResult<Person> Create(Person person)
+        {
+            return _personService.Create(person);
+        }
     }
 }

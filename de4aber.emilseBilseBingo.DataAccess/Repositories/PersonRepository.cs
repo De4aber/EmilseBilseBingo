@@ -26,5 +26,17 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             var person = _ctx.Persons.First(p => p.Id == id).ToPerson();
             return person;
         }
+
+        public Person Create(Person person)
+        {
+            var p = _ctx.Persons.Add(ToEntity(person)).Entity;
+            _ctx.SaveChanges();
+            return p.ToPerson();
+        }
+
+        private PersonEntity ToEntity(Person person)
+        {
+            return new PersonEntity(person.Name);
+        }
     }
 }

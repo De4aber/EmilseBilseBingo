@@ -7,5 +7,6 @@ namespace de4aber.emilseBilseBingo.Domain.IRepositories
     {
         public List<Person> FindAll();
         Person FindById(int id);
+        Person Create(Person person);
     }
 }

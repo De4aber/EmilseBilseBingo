@@ -23,5 +23,10 @@ namespace de4aber.emilseBilseBingo.Domain.Services
         {
             return _personRepository.FindById(id);
         }
+
+        public Person Create(Person person)
+        {
+            return _personRepository.Create(person);
+        }
     }
 }

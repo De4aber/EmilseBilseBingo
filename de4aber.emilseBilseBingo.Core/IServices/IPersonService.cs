@@ -8,5 +8,7 @@ namespace de4aber.emilseBilseBingo.Core.IServices
         public List<Person> GetAll();
 
         public Person FindById(int id);
+
+        public Person Create(Person person);
     }
 }
