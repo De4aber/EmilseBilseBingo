@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh "docker compose down"
+                        sh "docker compose --env-file config/Test.env down"
                     }
                     finally {}
                 }
@@ -32,7 +32,7 @@ pipeline {
 
         stage ("Deploy Backend") {
             steps {
-                sh "docker compose up -d --build"
+                sh "docker compose --env-file config/Test.env up -d --build"
             }
         }
     }
