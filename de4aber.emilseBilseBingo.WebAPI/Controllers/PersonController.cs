@@ -29,9 +29,21 @@ namespace EmilseBilseBingo.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Person> Create(Person person)
+        public ActionResult<Person> Create(CreatePerson person)
         {
-            return _personService.Create(person);
+            return _personService.Create(new Person(person.Name));
         }
+        
+        
+    }
+
+    public class CreatePerson
+    {
+        public CreatePerson(string name)
+        {
+            Name = name;
+        }
+
+        public string Name { get; set;}
     }
 }

@@ -29,9 +29,21 @@ namespace EmilseBilseBingo.Controllers
         }
 
         [HttpPost]
-        public ActionResult<TileItem> Create(TileItem tileItem)
+        public ActionResult<TileItem> Create(CreateTileItem tileItem)
         {
-            return _tileItemService.Create(tileItem);
+            return _tileItemService.Create(new TileItem(tileItem.Condition, tileItem.OfPersonId));
         }
+    }
+
+    public class CreateTileItem
+    {
+        public CreateTileItem(string condition, int ofPersonId)
+        {
+            Condition = condition;
+            OfPersonId = ofPersonId;
+        }
+
+        public string Condition { get; set; }
+        public int OfPersonId { get; set; }
     }
 }
