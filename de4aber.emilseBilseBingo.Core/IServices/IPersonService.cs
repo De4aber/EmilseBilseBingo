@@ -6,10 +6,10 @@ namespace de4aber.emilseBilseBingo.Core.IServices
 {
     public interface IPersonService
     {
-        public Task<List<Person>> GetAll();
+        public List<Person> GetAll();
 
-        public Task<Person> FindById(int id);
+        public Person FindById(int id);
 
-        public Task<Person> Create(Person person);
+        public Person Create(Person person);
     }
 }

@@ -6,7 +6,7 @@ namespace de4aber.emilseBilseBingo.Core.IServices
 {
     public interface ITileItemService
     {
-        public Task<List<TileItem>> GetAll();
+        public List<TileItem> GetAll();
 
         public TileItem GetById(int id);
 

@@ -18,7 +18,7 @@ namespace EmilseBilseBingo.Controllers
         }
         
         [HttpGet]
-        public Task<List<TileItem>> GetAll()
+        public ActionResult<List<TileItem>> GetAll()
         {
             return _tileItemService.GetAll();
         }

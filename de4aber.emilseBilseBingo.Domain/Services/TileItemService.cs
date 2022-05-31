@@ -19,15 +19,27 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             _personRepository = personRepository;
         }
 
-        public Task<List<TileItem>> GetAll()
+        public List<TileItem> GetAll()
         {
-            return _tileItemRepository.FindAll();
+            var list = _tileItemRepository.FindAll().Result;
+            foreach (TileItem tileItem in list)
+            {
+                SetPerson(tileItem);
+            }
+            return list;
         }
 
         public TileItem GetById(int id)
         {
-            throw new NotImplementedException();
-            
+            var ti = _tileItemRepository.FindById(id).Result;
+            return SetPerson(ti);
+
+        }
+
+        private TileItem SetPerson(TileItem ti)
+        {
+            ti.OfPerson = _personRepository.FindById(ti.OfPersonId).Result;
+            return ti;
         }
 
         public TileItem Create(TileItem tileItem)

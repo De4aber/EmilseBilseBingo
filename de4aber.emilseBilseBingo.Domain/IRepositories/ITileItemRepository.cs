@@ -8,7 +8,7 @@ namespace de4aber.emilseBilseBingo.Domain.IRepositories
     {
         public Task<List<TileItem>> FindAll();
 
-        public TileItem FindById(int id);
+        public Task<TileItem> FindById(int id);
 
         public TileItem Create(TileItem tileItem);
     }

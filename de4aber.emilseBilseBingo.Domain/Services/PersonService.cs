@@ -15,19 +15,19 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             _personRepository = personRepository;
         }
 
-        public Task<List<Person>> GetAll()
+        public List<Person> GetAll()
         {
-            return _personRepository.FindAll();
+            return _personRepository.FindAll().Result;
         }
 
-        public Task<Person> FindById(int id)
+        public Person FindById(int id)
         {
-            return _personRepository.FindById(id);
+            return _personRepository.FindById(id).Result;
         }
 
-        public Task<Person> Create(Person person)
+        public Person Create(Person person)
         {
-            return _personRepository.Create(person);
+            return _personRepository.Create(person).Result;
         }
     }
 }

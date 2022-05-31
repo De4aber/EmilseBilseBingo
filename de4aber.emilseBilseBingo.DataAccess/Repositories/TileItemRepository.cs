@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.IServices;
@@ -11,6 +12,8 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 {
     public class TileItemRepository: ITileItemRepository
     {
+
+        private string _table = "TileItem";
         private readonly MySqlConnection _connection = new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
         private readonly MainDbContext _ctx;
 
@@ -24,7 +27,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             var list = new List<TileItem>();
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand("SELECT * FROM `TileItem` ORDER BY `id`;", _connection);
+            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` ORDER BY `id`;", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
@@ -40,9 +43,24 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             return list;
         }
 
-        public TileItem FindById(int id)
+        public async Task<TileItem> FindById(int id)
         {
-            return _ctx.TileItemEntities.First(t => t.Id == id).ToTileItem();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` WHERE `id` = {id};", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var value = reader.GetValue(0);
+                var ent = new TileItemEntity(reader.GetValue(1).ToString(),(int) reader.GetValue(2))
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                return ent.ToTileItem();
+
+            }
+
+            throw new InvalidDataException("TileItem with that id does not exist");
         }
 
         public TileItem Create(TileItem tileItem)

@@ -18,19 +18,19 @@ namespace EmilseBilseBingo.Controllers
         }
 
         [HttpGet]
-        public Task<List<Person>> GetAll()
+        public ActionResult<List<Person>> GetAll()
         {
             return _personService.GetAll();
         }
         
         [HttpGet(nameof(GetById) + "/{id}")]
-        public Task<Person> GetById(int id)
+        public ActionResult<Person> GetById(int id)
         {
             return _personService.FindById(id);
         }
 
         [HttpPost]
-        public Task<Person> Create(CreatePerson person)
+        public ActionResult<Person> Create(CreatePerson person)
         {
             return _personService.Create(new Person(person.Name));
         }
