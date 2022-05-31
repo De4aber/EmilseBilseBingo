@@ -35,22 +35,28 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 
         public async Task<Person> FindById(int id)
         {
+            Person ent = null;
             await _connection.OpenAsync();
 
             await using var command = new MySqlCommand($"SELECT * FROM `{_table}` WHERE `id` = {id};", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var value = reader.GetValue(0);
-                var ent = new Person(reader.GetValue(1).ToString())
+                ent = new Person(reader.GetValue(1).ToString())
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                return ent;
+                
 
             }
+            
+            await _connection.CloseAsync();
+            if (ent == null)
+            {
+                throw new InvalidDataException("user with that id does not exist");
+            }
 
-            throw new InvalidDataException("user with that id does not exist");
+            return ent;
         }
 
         public async Task<Person> Create(Person person)
