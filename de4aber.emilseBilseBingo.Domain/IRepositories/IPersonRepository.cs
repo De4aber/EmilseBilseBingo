@@ -7,7 +7,7 @@ namespace de4aber.emilseBilseBingo.Domain.IRepositories
     public interface IPersonRepository
     {
         public Task<List<Person>> FindAll();
-        Person FindById(int id);
+        Task<Person> FindById(int id);
         Person Create(Person person);
     }
 }

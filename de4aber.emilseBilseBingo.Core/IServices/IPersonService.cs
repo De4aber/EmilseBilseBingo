@@ -8,7 +8,7 @@ namespace de4aber.emilseBilseBingo.Core.IServices
     {
         public Task<List<Person>> GetAll();
 
-        public Person FindById(int id);
+        public Task<Person> FindById(int id);
 
         public Person Create(Person person);
     }

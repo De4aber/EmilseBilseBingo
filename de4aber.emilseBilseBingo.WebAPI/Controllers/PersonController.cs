@@ -24,7 +24,7 @@ namespace EmilseBilseBingo.Controllers
         }
         
         [HttpGet(nameof(GetById) + "/{id}")]
-        public ActionResult<Person> GetById(int id)
+        public Task<Person> GetById(int id)
         {
             return _personService.FindById(id);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using de4aber.emilseBilseBingo.Core.IServices;
 using de4aber.emilseBilseBingo.Core.Models;
@@ -19,32 +20,19 @@ namespace de4aber.emilseBilseBingo.Domain.Services
 
         public List<TileItem> GetAll()
         {
-            var tileItems =  _tileItemRepository.FindAll();
-            
-            foreach (TileItem ti in tileItems)
-            {
-                SetPerson(ti);
-            }
-            
-
-            return tileItems;
+            throw new NotImplementedException();
         }
 
         public TileItem GetById(int id)
         {
-            return SetPerson(_tileItemRepository.FindById(id));
+            throw new NotImplementedException();
             
         }
 
         public TileItem Create(TileItem tileItem)
         {
-            return SetPerson(_tileItemRepository.Create(tileItem));
+            throw new NotImplementedException();
         }
-
-        private TileItem SetPerson(TileItem tileItem)
-        {
-            tileItem.OfPerson = _personRepository.FindById(tileItem.OfPersonId);
-            return tileItem;
-        }
+        
     }
 }

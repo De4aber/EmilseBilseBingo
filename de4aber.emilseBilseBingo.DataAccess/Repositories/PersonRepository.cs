@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.Models;
@@ -21,7 +22,6 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 
         public async Task<List<Person>> FindAll()
         {
-
             var list = new List<Person>();
             await _connection.OpenAsync();
 
@@ -34,7 +34,6 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                Console.WriteLine("value = " + value);
                 list.Add(ent.ToPerson());
                 
             }
@@ -42,9 +41,24 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             return list;
         }
 
-        public Person FindById(int id)
+        public async Task<Person> FindById(int id)
         {
-            throw new NotImplementedException();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"SELECT * FROM `Person` WHERE `id` = {id};", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var value = reader.GetValue(0);
+                var ent = new PersonEntity(reader.GetValue(1).ToString())
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                return ent.ToPerson();
+
+            }
+
+            throw new InvalidDataException("user with that id does not exist");
         }
 
         public Person Create(Person person)
