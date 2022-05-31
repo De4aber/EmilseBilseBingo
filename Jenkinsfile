@@ -32,7 +32,7 @@ pipeline {
 
         stage ("Deploy Backend") {
             steps {
-                sh "docker compse up -d --build"
+                sh "docker compose up -d --build"
             }
         }
     }
