@@ -35,7 +35,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
                 list.Add(ent);
                 
             }
-
+            await _connection.CloseAsync();
             return list;
         }
 
@@ -53,7 +53,6 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
                     Id = (int) reader.GetValue(0)
                 };
                 
-
             }
             
             await _connection.CloseAsync();
@@ -67,21 +66,25 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 
         public async Task<Person> Create(Person person)
         {
+            Person? ent = null;
             await _connection.OpenAsync();
 
             await using var command = new MySqlCommand($"INSERT INTO `{Table}`(`{Name}`) VALUES ('{person.Name}'); SELECT * FROM `{Table}` WHERE `{Id}` = LAST_INSERT_ID();", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var ent = new Person(reader.GetValue(1).ToString())
+                ent = new Person(reader.GetValue(1).ToString())
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                return ent;
-
             }
-
-            throw new InvalidDataException("ERROR: person not created");
+            
+            await _connection.CloseAsync();
+            if (ent == null)
+            {
+                throw new InvalidDataException("user with that id does not exist");
+            }
+            return ent;
         }
     }
 }
