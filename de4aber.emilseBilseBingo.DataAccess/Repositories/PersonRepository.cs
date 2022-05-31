@@ -25,7 +25,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             var list = new List<Person>();
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand("SELECT * FROM `Person`;", _connection);
+            await using var command = new MySqlCommand("SELECT * FROM `Person` ORDER BY `id`;", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
