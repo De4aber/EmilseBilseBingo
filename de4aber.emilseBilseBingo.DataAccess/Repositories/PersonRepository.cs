@@ -8,8 +8,14 @@ using MySqlConnector;
 namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 {
     public class PersonRepository : IPersonRepository
-    {
-        private string _table = "Person";
+    {   
+        //Table
+        private readonly string Table = "Person";
+        
+        //Rows
+        private const string Id = "id";
+        private const string Name = "name";
+
         private readonly MySqlConnection _connection = new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
         
         public async Task<List<Person>> FindAll()
@@ -17,7 +23,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             var list = new List<Person>();
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` ORDER BY `id`;", _connection);
+            await using var command = new MySqlCommand($"SELECT * FROM `{Table}` ORDER BY `{Id}`;", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
@@ -38,7 +44,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             Person ent = null;
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` WHERE `id` = {id};", _connection);
+            await using var command = new MySqlCommand($"SELECT * FROM `{Table}` WHERE `{Id}` = {id};", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
@@ -63,7 +69,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
         {
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand($"INSERT INTO `{_table}`(`name`) VALUES ('{person.Name}'); SELECT * FROM `{_table}` WHERE `id` = LAST_INSERT_ID();", _connection);
+            await using var command = new MySqlCommand($"INSERT INTO `{Table}`(`{Name}`) VALUES ('{person.Name}'); SELECT * FROM `{Table}` WHERE `{Id}` = LAST_INSERT_ID();", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
