@@ -9,8 +9,14 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 {
     public class TileItemRepository: ITileItemRepository
     {
-
-        private string _table = "TileItem";
+        //Table
+        private const string Table = "TileItem";
+        
+        //Rows
+        private const string Id = "id";
+        private const string BingoCondition = "bingoCondition";
+        private const string OfPersonId = "ofPersonId";
+        
         private readonly MySqlConnection _connection = new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
         
         public async Task<List<TileItem>> FindAll()
@@ -18,7 +24,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             var list = new List<TileItem>();
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` ORDER BY `id`;", _connection);
+            await using var command = new MySqlCommand($"SELECT * FROM `{Table}` ORDER BY `{Id}`;", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
@@ -40,7 +46,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             await _connection.OpenAsync();
             
 
-            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` WHERE `id` = {id};", _connection);
+            await using var command = new MySqlCommand($"SELECT * FROM `{Table}` WHERE `{Id}` = {id};", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
@@ -64,7 +70,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             TileItem ent = null;
             await _connection.OpenAsync();
 
-            await using var command = new MySqlCommand($"INSERT INTO `{_table}`(`bingoCondition`, `ofPersonId`) VALUES ('{tileItem.Condition}', '{tileItem.OfPersonId}'); SELECT * FROM `{_table}` WHERE `id` = LAST_INSERT_ID();", _connection);
+            await using var command = new MySqlCommand($"INSERT INTO `{Table}`(`{BingoCondition}`, `{OfPersonId}`) VALUES ('{tileItem.Condition}', '{tileItem.OfPersonId}'); SELECT * FROM `{Table}` WHERE `{Id}` = LAST_INSERT_ID();", _connection);
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
