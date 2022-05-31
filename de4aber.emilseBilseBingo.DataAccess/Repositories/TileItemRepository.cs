@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using de4aber.emilseBilseBingo.Core.IServices;
 using de4aber.emilseBilseBingo.Core.Models;
-using de4aber.emilseBilseBingo.DataAcess.Entities;
 using de4aber.emilseBilseBingo.Domain.IRepositories;
 using MySqlConnector;
 
@@ -15,13 +12,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 
         private string _table = "TileItem";
         private readonly MySqlConnection _connection = new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
-        private readonly MainDbContext _ctx;
-
-        public TileItemRepository(MainDbContext ctx)
-        {
-            _ctx = ctx;
-        }
-
+        
         public async Task<List<TileItem>> FindAll()
         {
             var list = new List<TileItem>();
@@ -31,11 +22,11 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var ent = new TileItemEntity(reader.GetValue(1).ToString(), (int) reader.GetValue(2))
+                var ent = new TileItem(reader.GetValue(1).ToString(), (int) reader.GetValue(2))
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                list.Add(ent.ToTileItem());
+                list.Add(ent);
                 
             }
 
@@ -50,11 +41,11 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var ent = new TileItemEntity(reader.GetValue(1).ToString(),(int) reader.GetValue(2))
+                var ent = new TileItem(reader.GetValue(1).ToString(),(int) reader.GetValue(2))
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                return ent.ToTileItem();
+                return ent;
 
             }
 
@@ -78,11 +69,6 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             }
 
             throw new InvalidDataException("ERROR: TileItem not created");
-        }
-
-        private TileItemEntity toTileEntity(TileItem tileItem)
-        {
-            return new TileItemEntity(tileItem.Condition, tileItem.OfPersonId);
         }
     }
 }

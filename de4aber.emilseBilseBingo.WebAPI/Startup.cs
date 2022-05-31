@@ -38,12 +38,6 @@ namespace EmilseBilseBingo
 
             //Setting up dependency injection
 
-
-            //MainDbSeeder
-            services.AddScoped<IMainDbSeeder, MainDbSeeder>();
-            //Setting up DB info
-            services.AddDbContext<MainDbContext>(options => { options.UseSqlite("Data Source=bingo.db"); });
-
             //Persons
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPersonService, PersonService>();
@@ -54,13 +48,8 @@ namespace EmilseBilseBingo
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainDbContext context,
-            IMainDbSeeder mainDbSeeder)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
-            mainDbSeeder.SeedDevelopment();
-            
-            
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 

@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.Models;
-using de4aber.emilseBilseBingo.DataAcess.Entities;
 using de4aber.emilseBilseBingo.Domain.IRepositories;
 using MySqlConnector;
 
@@ -25,11 +22,11 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             while (await reader.ReadAsync())
             {
                 var value = reader.GetValue(0);
-                var ent = new PersonEntity(reader.GetValue(1).ToString())
+                var ent = new Person(reader.GetValue(1).ToString())
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                list.Add(ent.ToPerson());
+                list.Add(ent);
                 
             }
 
@@ -45,11 +42,11 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             while (await reader.ReadAsync())
             {
                 var value = reader.GetValue(0);
-                var ent = new PersonEntity(reader.GetValue(1).ToString())
+                var ent = new Person(reader.GetValue(1).ToString())
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                return ent.ToPerson();
+                return ent;
 
             }
 
@@ -64,21 +61,15 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
-                var value = reader.GetValue(0);
-                var ent = new PersonEntity(reader.GetValue(1).ToString())
+                var ent = new Person(reader.GetValue(1).ToString())
                 {
                     Id = (int) reader.GetValue(0)
                 };
-                return ent.ToPerson();
+                return ent;
 
             }
 
             throw new InvalidDataException("ERROR: person not created");
-        }
-
-        private PersonEntity ToEntity(Person person)
-        {
-            return new PersonEntity(person.Name);
         }
     }
 }
