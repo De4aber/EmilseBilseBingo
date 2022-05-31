@@ -1,42 +1,75 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.Models;
-using de4aber.emilseBilseBingo.DataAcess.Entities;
 using de4aber.emilseBilseBingo.Domain.IRepositories;
+using MySqlConnector;
 
 namespace de4aber.emilseBilseBingo.DataAcess.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        private readonly MainDbContext _ctx;
-
-        public PersonRepository(MainDbContext ctx)
+        private string _table = "Person";
+        private readonly MySqlConnection _connection = new MySqlConnection("Server=185.51.76.204; Database=EmilseBilseBingo; Uid=root; PWD=hemmeligt;");
+        
+        public async Task<List<Person>> FindAll()
         {
-            _ctx = ctx;
+            var list = new List<Person>();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` ORDER BY `id`;", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var value = reader.GetValue(0);
+                var ent = new Person(reader.GetValue(1).ToString())
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                list.Add(ent);
+                
+            }
+
+            return list;
         }
 
-        public List<Person> FindAll()
+        public async Task<Person> FindById(int id)
         {
-            return _ctx.Persons.Select(p => p.ToPerson()).ToList();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"SELECT * FROM `{_table}` WHERE `id` = {id};", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var value = reader.GetValue(0);
+                var ent = new Person(reader.GetValue(1).ToString())
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                return ent;
+
+            }
+
+            throw new InvalidDataException("user with that id does not exist");
         }
 
-        public Person FindById(int id)
+        public async Task<Person> Create(Person person)
         {
-            var person = _ctx.Persons.First(p => p.Id == id).ToPerson();
-            return person;
-        }
+            await _connection.OpenAsync();
 
-        public Person Create(Person person)
-        {
-            var p = _ctx.Persons.Add(ToEntity(person)).Entity;
-            _ctx.SaveChanges();
-            return p.ToPerson();
-        }
+            await using var command = new MySqlCommand($"INSERT INTO `{_table}`(`name`) VALUES ('{person.Name}'); SELECT * FROM `{_table}` WHERE `id` = LAST_INSERT_ID();", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var ent = new Person(reader.GetValue(1).ToString())
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                return ent;
 
-        private PersonEntity ToEntity(Person person)
-        {
-            return new PersonEntity(person.Name);
+            }
+
+            throw new InvalidDataException("ERROR: person not created");
         }
     }
 }

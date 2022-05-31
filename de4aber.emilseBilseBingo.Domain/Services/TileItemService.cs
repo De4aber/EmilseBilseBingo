@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.IServices;
 using de4aber.emilseBilseBingo.Core.Models;
 using de4aber.emilseBilseBingo.Domain.IRepositories;
@@ -19,32 +21,31 @@ namespace de4aber.emilseBilseBingo.Domain.Services
 
         public List<TileItem> GetAll()
         {
-            var tileItems =  _tileItemRepository.FindAll();
-            
-            foreach (TileItem ti in tileItems)
+            var list = _tileItemRepository.FindAll().Result;
+            foreach (TileItem tileItem in list)
             {
-                SetPerson(ti);
+                SetPerson(tileItem);
             }
-            
-
-            return tileItems;
+            return list;
         }
 
         public TileItem GetById(int id)
         {
-            return SetPerson(_tileItemRepository.FindById(id));
-            
+            var ti = _tileItemRepository.FindById(id).Result;
+            return SetPerson(ti);
+
+        }
+
+        private TileItem SetPerson(TileItem ti)
+        {
+            ti.OfPerson = _personRepository.FindById(ti.OfPersonId).Result;
+            return ti;
         }
 
         public TileItem Create(TileItem tileItem)
         {
-            return SetPerson(_tileItemRepository.Create(tileItem));
+            return SetPerson(_tileItemRepository.Create(tileItem).Result);
         }
-
-        private TileItem SetPerson(TileItem tileItem)
-        {
-            tileItem.OfPerson = _personRepository.FindById(tileItem.OfPersonId);
-            return tileItem;
-        }
+        
     }
 }
