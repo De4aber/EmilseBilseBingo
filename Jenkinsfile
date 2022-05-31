@@ -11,5 +11,11 @@ pipeline {
                 sh "echo 'hello world!'"
             }
         }
+
+        stage ("Build Backend") {
+            steps {
+                sh "dotnet build ."
+            }
+        }
     }
 }
