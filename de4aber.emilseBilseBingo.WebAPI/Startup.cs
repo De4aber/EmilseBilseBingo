@@ -35,6 +35,16 @@ namespace EmilseBilseBingo
                     new OpenApiInfo {Title = "EmilseBilseBingo.WebApi", Version = "v1"});
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("public-cors", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
 
             //Setting up dependency injection
 
@@ -59,7 +69,7 @@ namespace EmilseBilseBingo
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
+            app.UseCors("public-cors");
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
