@@ -8,6 +8,8 @@ namespace de4aber.emilseBilseBingo.Core.IServices
     {
         public List<TileItem> GetAll();
 
+        public List<TileItem> GetAll_Random();
+
         public TileItem GetById(int id);
 
         public TileItem Create(TileItem tileItem);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.IServices;
 using de4aber.emilseBilseBingo.Core.Models;
@@ -27,6 +28,13 @@ namespace de4aber.emilseBilseBingo.Domain.Services
                 SetPerson(tileItem);
             }
             return list;
+        }
+        
+        private static Random random = new Random();
+
+        public List<TileItem> GetAll_Random()
+        {
+            return GetAll().OrderBy(a => random.Next()).ToList();
         }
 
         public TileItem GetById(int id)
