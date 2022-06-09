@@ -9,6 +9,8 @@ namespace de4aber.emilseBilseBingo.Core.IServices
         public List<TileItem> GetAll();
 
         public List<TileItem> GetAll_Random();
+        
+        public List<TileItem> GetByPersonId(int id);
 
         public TileItem GetById(int id);
 

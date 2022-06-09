@@ -40,6 +40,27 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
             return list;
         }
 
+        public async Task<List<TileItem>> FindByPersonId(int personId)
+        {
+            var list = new List<TileItem>();
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"SELECT * FROM `{Table}` WHERE `{OfPersonId}` = {personId} ORDER BY `{Id}`;", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                var ent = new TileItem(reader.GetValue(1).ToString(), (int) reader.GetValue(2))
+                {
+                    Id = (int) reader.GetValue(0)
+                };
+                list.Add(ent);
+                
+            }
+            await _connection.CloseAsync();
+
+            return list;
+        }
+
         public async Task<TileItem> FindById(int id)
         {
             TileItem ent = null;
