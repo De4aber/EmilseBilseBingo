@@ -34,6 +34,12 @@ namespace EmilseBilseBingo.Controllers
         {
             return _tileItemService.GetByPersonId(personId);
         }
+        
+        [HttpGet(nameof(GetByPersonIdRandomized))]
+        public ActionResult<List<TileItem>> GetByPersonIdRandomized(int personId)
+        {
+            return _tileItemService.GetByPersonId_Random(personId);
+        }
 
         [HttpGet(nameof(GetById) + "/{id}")]
         public ActionResult<TileItem> GetById(int id)

@@ -47,6 +47,11 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             return list;
         }
 
+        public List<TileItem> GetByPersonId_Random(int id)
+        {
+            return GetByPersonId(id).OrderBy(a => random.Next()).ToList();
+        }
+
         public TileItem GetById(int id)
         {
             var ti = _tileItemRepository.FindById(id).Result;
