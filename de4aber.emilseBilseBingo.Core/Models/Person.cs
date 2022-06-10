@@ -9,6 +9,5 @@ namespace de4aber.emilseBilseBingo.Core.Models
 
         public int Id { get; set; } = -1;
         public string Name { get; set; }
-        
     }
 }

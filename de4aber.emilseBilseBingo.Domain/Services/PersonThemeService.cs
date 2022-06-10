@@ -26,7 +26,12 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             return list;
         }
 
-        public PersonTheme FindById(int id)
+        public PersonTheme? FindById(int id)
+        {
+            return _personThemeRepository.FindByPersonId(id).Result;
+        }
+
+        public PersonTheme FindByPersonId(int id)
         {
             throw new System.NotImplementedException();
         }

@@ -8,6 +8,8 @@ namespace de4aber.emilseBilseBingo.Domain.IRepositories
     {
         public Task<List<PersonTheme>> FindAll();
         Task<PersonTheme> FindById(int id);
+        
+        Task<PersonTheme?> FindByPersonId(int id);
         Task<PersonTheme> Create(PersonTheme person);
     }
 }

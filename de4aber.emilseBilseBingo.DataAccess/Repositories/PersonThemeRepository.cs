@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using de4aber.emilseBilseBingo.Core.Models;
 using de4aber.emilseBilseBingo.Domain.IRepositories;
@@ -36,6 +37,7 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
                 {
                     ent.TakenByPersonId = (int) takenById;
                 }
+                
                 list.Add(ent);
                 
             }
@@ -46,6 +48,31 @@ namespace de4aber.emilseBilseBingo.DataAcess.Repositories
         public Task<PersonTheme> FindById(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<PersonTheme?> FindByPersonId(int id)
+        {
+            PersonTheme? ent = null;
+            await _connection.OpenAsync();
+
+            await using var command = new MySqlCommand($"SELECT * FROM `{Table}` WHERE `{TakenByPersonId}` = {id};", _connection);
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
+            {
+                ent = new PersonTheme(reader.GetValue(1).ToString())
+                {
+                    Id = (int) reader.GetValue(0),
+                };
+                var takenById = reader.GetValue(2);
+                if (!takenById.Equals(null))
+                {
+                    ent.TakenByPersonId = (int) takenById;
+                }
+            }
+            
+            await _connection.CloseAsync();
+
+            return ent;
         }
 
         public Task<PersonTheme> Create(PersonTheme person)
