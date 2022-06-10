@@ -26,12 +26,12 @@ namespace de4aber.emilseBilseBingo.Domain.Services
             return list;
         }
 
-        public Person FindById(int id)
+        public PersonTheme FindById(int id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Person Create(PersonTheme person)
+        public PersonTheme Create(PersonTheme person)
         {
             throw new System.NotImplementedException();
         }

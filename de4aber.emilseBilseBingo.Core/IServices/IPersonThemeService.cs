@@ -7,8 +7,8 @@ namespace de4aber.emilseBilseBingo.Core.IServices
     {
         public List<PersonTheme> GetAll();
 
-        public Person FindById(int id);
+        public PersonTheme FindById(int id);
 
-        public Person Create(PersonTheme person);
+        public PersonTheme Create(PersonTheme person);
     }
 }
