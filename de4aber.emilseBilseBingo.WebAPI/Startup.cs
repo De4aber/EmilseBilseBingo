@@ -55,6 +55,10 @@ namespace EmilseBilseBingo
             //TileItems
             services.AddScoped<ITileItemRepository, TileItemRepository>();
             services.AddScoped<ITileItemService, TileItemService>();
+            
+            //PersonTheme
+            services.AddScoped<IPersonThemeRepository, PersonThemeRepository>();
+            services.AddScoped<IPersonThemeService, PersonThemeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
